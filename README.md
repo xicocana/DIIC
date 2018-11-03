@@ -52,8 +52,11 @@ neste caso, -h e o publisher/source
 ---------------------------------------------------------------------------------------------------------------------------------
 
 TODO LIST:
+
 -falta montar o led rgd no arduino e reconhece-lo no codigo
+
 -alterar a cor do led dependendo da mendagem recebida pelo raspbery (basta procurar o comment TODO no codigo do arduino pa saberem onde implementar isto)
+
 -alterar o script python do raspbery para enviar mensagens aos subscritores dependendo do resultado do ping
 
 
