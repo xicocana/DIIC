@@ -48,9 +48,11 @@ se executarem no terminal:
 mosquitto_pub -h raspberrypi -t "/leds/esp8266" -m "ON"
 
 todos os arduinos subscritores recebem a string "ON",
-neste caso, -h e o publisher/source
-            -t e o canal que os arduinos subscrevem
-            -m a mensagem enviada
+neste caso, -h é o publisher/source
+
+            -t é o canal que os arduinos subscrevem
+            
+            -m é a mensagem enviada
 
 ---------------------------------------------------------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------------------------------------------------------
