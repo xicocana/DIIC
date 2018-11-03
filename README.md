@@ -28,9 +28,13 @@ Quando tivermos mais do que um arduino ligado a pool cada um vai ter de ter um u
 RASPBERRY_SIDE
 
 ligar por ssh (com o programa PuTTy por exemplo)
+
 ip: 192.168.1.100
+
 username: pi
+
 password: diic
+
 
 no raspbery ainda so temos um ficheiro python que faz ping a um determinado ip 
 para executar:
