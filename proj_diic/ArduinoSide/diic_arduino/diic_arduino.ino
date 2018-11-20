@@ -1,4 +1,4 @@
-#include <ESP8266WiFi.h> 
+#include <ESP8266WiFi.h>
 #include "Adafruit_MQTT.h" 
 #include "Adafruit_MQTT_Client.h" 
 /************************* WiFi Access Point *********************************/ 
@@ -17,8 +17,16 @@ Adafruit_MQTT_Client mqtt(&client, MQTT_SERVER, MQTT_PORT, MQTT_USERNAME, MQTT_P
 // Setup a feed called 'esp8266_led' for subscribing to changes. 
 Adafruit_MQTT_Subscribe esp8266_led = Adafruit_MQTT_Subscribe(&mqtt, MQTT_USERNAME "/leds/esp8266"); 
 /*************************** Sketch Code ************************************/ 
+
+const int redPin = 11;
+const int greenPin = 9;
+const int bluePin = 10;
+
 void MQTT_connect(); 
 void setup() { 
+  pinMode(redPin, OUTPUT);
+  pinMode(greenPin, OUTPUT);
+  pinMode(bluePin, OUTPUT);  
  Serial.begin(115200); 
  delay(10); 
  Serial.println(F("RPi-ESP-MQTT")); 
@@ -47,10 +55,28 @@ void loop() {
  // Here its read the subscription 
  Adafruit_MQTT_Subscribe *subscription; 
  while ((subscription = mqtt.readSubscription())) { 
-   if (subscription == &esp8266_led) { 
-     Serial.print(F("Got: ")); 
-     Serial.println((char *)esp8266_led.lastread);           //aqui verificamos a mensagem recebida do raspberrypi e alteramos a cor do led
-     //TODO
+    if (subscription == &esp8266_led) { 
+      Serial.print(F("Got: "));
+
+      String message = String((char *)esp8266_led.lastread);
+      Serial.println();           //aqui verificamos a mensagem recebida do raspberrypi e alteramos a cor do led
+      Serial.println(message);
+      
+      if (message.indexOf("RED") != -1) {
+        analogWrite(redPin, 255);
+        analogWrite(greenPin, 0);
+        analogWrite(bluePin, 0);
+      }
+      else if (message.indexOf("GREEN") != -1) {
+        analogWrite(redPin, 0);
+        analogWrite(greenPin, 255);
+        analogWrite(bluePin, 0);
+      }
+      else {
+        analogWrite(redPin, 0);
+        analogWrite(greenPin, 0);
+        analogWrite(bluePin, 255);
+      }
    } 
  } 
 } 
