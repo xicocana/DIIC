@@ -63,16 +63,19 @@ void loop() {
       Serial.println(message);
       
       if (message.indexOf("RED") != -1) {
+        Serial.println("RED"); 
         analogWrite(redPin, 255);
         analogWrite(greenPin, 0);
         analogWrite(bluePin, 0);
       }
       else if (message.indexOf("GREEN") != -1) {
+        Serial.println("GREEN"); 
         analogWrite(redPin, 0);
         analogWrite(greenPin, 255);
         analogWrite(bluePin, 0);
       }
-      else {
+      else if (message.indexOf("BLUE") != -1) {
+        Serial.println("BLUE");
         analogWrite(redPin, 0);
         analogWrite(greenPin, 0);
         analogWrite(bluePin, 255);
