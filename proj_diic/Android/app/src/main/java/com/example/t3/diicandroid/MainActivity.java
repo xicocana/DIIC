@@ -34,8 +34,8 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         getSupportActionBar().hide();
         setContentView(R.layout.activity_main);
 
-        locationText = (TextView)findViewById(R.id.locationText);
-        getLocationBtn = (Button)findViewById(R.id.getLocationBtn);
+        locationText = findViewById(R.id.locationText);
+        getLocationBtn = findViewById(R.id.getLocationBtn);
         getLocationBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -93,6 +93,8 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         catch (Exception e) {
             e.printStackTrace();
         }
+
+        new SendLocationTask().execute(location);
     }
 
     @Override
@@ -102,6 +104,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
 
     @Override
     public void onProviderEnabled(String provider) {
+
     }
 
     @Override
