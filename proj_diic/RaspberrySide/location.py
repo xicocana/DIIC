@@ -39,8 +39,8 @@ def notifyDistance(color):
 notifyDistance("RED")
 
 while True:
-    data ='b38.7476457 -9.3145716'
-    TargetCoordinates = (data[1:len(data)]).split(' ')
+    data, addr = sock.recvfrom(128) # buffer size is 1024 bytes
+    TargetCoordinates = (data[1:len(data)]).split(';')
 
     lat2 = radians(float(TargetCoordinates[0]))
     lon2 = radians(float(TargetCoordinates[1]))
@@ -83,5 +83,3 @@ while True:
         if (distance > StoppedThreshold) :
             distanceStage = DistanceStage.Recovering
             notifyDistance("GRAY")
-
-    data, addr = sock.recvfrom(128) # buffer size is 1024 bytes

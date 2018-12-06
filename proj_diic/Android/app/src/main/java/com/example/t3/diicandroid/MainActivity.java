@@ -41,14 +41,6 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
 
         locationText = findViewById(R.id.locationText);
         getLocationBtn = findViewById(R.id.getLocationBtn);
-        /*
-        getLocationBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
-        */
 
         t = new Thread() {
             @Override
