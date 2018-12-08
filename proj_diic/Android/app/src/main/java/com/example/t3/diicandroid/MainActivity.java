@@ -15,7 +15,6 @@ import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -23,12 +22,21 @@ import android.widget.Toast;
 import java.util.List;
 import java.util.Locale;
 
+import twitter4j.StatusUpdate;
+import twitter4j.Twitter;
+import twitter4j.TwitterException;
+import twitter4j.TwitterFactory;
+import twitter4j.auth.RequestToken;
+import twitter4j.conf.ConfigurationBuilder;
+
 public class MainActivity extends AppCompatActivity implements LocationListener {
 
     private static final int REQUEST_PERMISSION_FINE_LOCATION_RESULT = 0;
     private TextView locationText;
-    private Button getLocationBtn;
+    //private Button getLocationBtn;
     private LocationManager locationManager;
+    public Location lastLocation;
+    public Twitter twitter;
 
     int delay = 10 * 1000;
     Thread t;
@@ -40,7 +48,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         setContentView(R.layout.activity_main);
 
         locationText = findViewById(R.id.locationText);
-        getLocationBtn = findViewById(R.id.getLocationBtn);
+        //getLocationBtn = findViewById(R.id.getLocationBtn);
         /*
         getLocationBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -50,12 +58,21 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         });
         */
 
+        ConfigurationBuilder cb = new ConfigurationBuilder();
+        cb.setDebugEnabled(true);
+        cb.setOAuthConsumerKey("***");
+        cb.setOAuthConsumerSecret("***");
+        cb.setOAuthAccessToken("***");
+        cb.setOAuthAccessTokenSecret("***");
+        TwitterFactory tf = new TwitterFactory(cb.build());
+        twitter = tf.getInstance();
+
         t = new Thread() {
             @Override
             public void run() {
                 while (!isInterrupted()) {
                     try {
-                        Thread.sleep(delay);  //1000ms = 1 sec
+                        Thread.sleep(delay);
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
@@ -121,7 +138,8 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
             e.printStackTrace();
         }
 
-        new SendLocationTask().execute(location);
+        lastLocation = location;
+        new SendLocationTask().execute(this);
     }
 
     @Override

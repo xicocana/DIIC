@@ -1,5 +1,6 @@
 package com.example.t3.diicandroid;
 
+import android.content.Context;
 import android.location.Location;
 import android.os.AsyncTask;
 
@@ -10,11 +11,20 @@ import java.net.InetAddress;
 import java.net.SocketException;
 import java.net.UnknownHostException;
 
-public class SendLocationTask extends AsyncTask<Location, Void, Void> {
+import twitter4j.StatusUpdate;
+import twitter4j.TwitterException;
 
-    protected Void doInBackground(Location... location) {
+public class SendLocationTask extends AsyncTask<Context, Void, Void> {
+
+    protected Void doInBackground(Context... params) {
         try {
-            String messageStr = location[0].getLatitude() + " " + location[0].getLongitude();
+            Context context = params[0];
+
+            MainActivity mainActivity = (MainActivity) context;
+            if (mainActivity == null) return null;
+
+            String messageStr = mainActivity.lastLocation.getLatitude() + " " + mainActivity.lastLocation.getLongitude();
+            /*
             int server_port = 5500;
             DatagramSocket s = new DatagramSocket();
             InetAddress local = InetAddress.getByName("192.168.1.5");
@@ -22,7 +32,13 @@ public class SendLocationTask extends AsyncTask<Location, Void, Void> {
             byte[] message = messageStr.getBytes();
             DatagramPacket p = new DatagramPacket(message, msg_length, local, server_port);
             s.send(p);
+            */
+            mainActivity.twitter.updateStatus(messageStr);
         }
+        catch (TwitterException te) {
+            te.printStackTrace();
+        }
+        /*
         catch (SocketException se) {
             System.out.println("Socket Exception:");
             se.printStackTrace();
@@ -35,6 +51,7 @@ public class SendLocationTask extends AsyncTask<Location, Void, Void> {
             System.out.println("IO Exception:");
             ioe.printStackTrace();
         }
+        */
         return null;
     }
 }
