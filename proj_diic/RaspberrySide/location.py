@@ -17,7 +17,7 @@ distanceStage = DistanceStage.Far
 tweetCheckInterval = 15
 
 #If shuttle distance is lower than this, assume Shuttle is stopped
-StoppedThreshold = 100
+StoppedThreshold = 150
 #If shuttle distance is lower than this, assume Shuttle is almost arriving at stop
 ArrivingThreshold = 1200
 #If shuttle distance is lower than this, assume Shuttle is close
@@ -33,15 +33,15 @@ api = twitter.Api(consumer_key='***',
 
 def notifyDistance(color):
     if (color == "RED"):
-        1
+        print(color)
     if (color == "YELLOW"):
-        1
+        print(color)
     if (color == "GREEN"):
-        1
+        print(color)
     if (color == "GRAY"):
-        1
+        print(color)
 
-notifyDistance("RED")
+notifyDistance("GREEN")
 
 while True:
 
@@ -55,7 +55,6 @@ while True:
             data = t[0].text
             data ='b38.7476457 -9.3145716'
             TargetCoordinates = t[0].text.split(' ')
-            print (TargetCoordinates)
 
             lat2 = radians(float(TargetCoordinates[0]))
             lon2 = radians(float(TargetCoordinates[1]))
@@ -98,6 +97,9 @@ while True:
                 if (distance > StoppedThreshold) :
                     distanceStage = DistanceStage.Recovering
                     notifyDistance("GRAY")
-
+        else:
+            print("No new tweets")
+    else:
+        print("No tweets to read")
     time.sleep(tweetCheckInterval)
     
