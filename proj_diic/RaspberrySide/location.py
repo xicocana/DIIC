@@ -4,6 +4,7 @@ import sys
 from enum import Enum
 from math import sin, cos, sqrt, atan2, radians
 from datetime import timedelta
+import os
 
 class DistanceStage(Enum):
     Stopped = 1
@@ -26,20 +27,28 @@ Stopped = False
 
 lastTweetSeconds = 0
 
-api = twitter.Api(consumer_key='***',
-                consumer_secret='***',
-                access_token_key='***',
-                access_token_secret='***')
+api = twitter.Api(consumer_key='oe2teVtImiIOcCKHu66djh0Sx',
+                consumer_secret='1SalLxlMfl9tabPh8He46hcwFfVeUxWWQH1ygThqnMmcv5ZArH',
+                access_token_key='1070723637668446208-EVLrJx7p8MFFNYs0MJtO7KYWeeADWE',
+                access_token_secret='oYaBdj96PFULVXLLUl2miy1Q0MsVOlpAtuoKci7RPtQtD')
 
 def notifyDistance(color):
     if (color == "RED"):
         print(color)
+        command = "python SendColor.py red"
+        os.system(command)
     if (color == "YELLOW"):
         print(color)
+        command = "python SendColor.py yellow"
+        os.system(command)
     if (color == "GREEN"):
         print(color)
+        command = "python SendColor.py green"
+        os.system(command)
     if (color == "GRAY"):
         print(color)
+        command = "python SendColor.py off"
+        os.system(command)
 
 notifyDistance("GREEN")
 
@@ -102,4 +111,3 @@ while True:
     else:
         print("No tweets to read")
     time.sleep(tweetCheckInterval)
-    
