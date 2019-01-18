@@ -27,10 +27,10 @@ Stopped = False
 
 lastTweetSeconds = 0
 
-api = twitter.Api(consumer_key='oe2teVtImiIOcCKHu66djh0Sx',
-                consumer_secret='1SalLxlMfl9tabPh8He46hcwFfVeUxWWQH1ygThqnMmcv5ZArH',
-                access_token_key='1070723637668446208-EVLrJx7p8MFFNYs0MJtO7KYWeeADWE',
-                access_token_secret='oYaBdj96PFULVXLLUl2miy1Q0MsVOlpAtuoKci7RPtQtD')
+api = twitter.Api(consumer_key='xxxxxxxxxxxxxxxxxx',
+                consumer_secret='xxxxxxxxxxxxxxxxxx',
+                access_token_key='xxxxxxxxxxxxxxxxxx',
+                access_token_secret='xxxxxxxxxxxxxxxxxx')
 
 def notifyDistance(color):
     if (color == "RED"):
